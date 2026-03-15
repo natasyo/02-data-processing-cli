@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import { createReadStream, writeFile } from 'fs';
 import path from 'path';
-import {  Transform, Writable, pipeline } from 'stream';
+import { Readable, Transform, Writable, pipeline } from 'stream';
 export async function csvToJson(currentPath, args) {
   if (args.length !== 4)
     throw new Error(

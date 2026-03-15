@@ -1,23 +1,8 @@
 [
   {
-    "name": "Alice",
-    "age": "30",
-    "city": "New York"
-  },
-  {
     "name": "Bob",
     "age": "25",
     "city": "London"
-  },
-  {
-    "name": "Alice",
-    "age": "30",
-    "city": "New York"
-  },
-  {
-    "name": "Alice",
-    "age": "30",
-    "city": "New York"
   },
   {
     "name": "Bob",
@@ -1768,20 +1753,10 @@
     "name": "Bob",
     "age": "25",
     "city": "London"
-  },
-  {
-    "name": "Alice",
-    "age": "30",
-    "city": "New York"
   },
   {
     "name": "Alice",
     "age": "30",
     "city": "New York"
-  },
-  {
-    "name": "Bob",
-    "age": "25",
-    "city": "London"
   }
 ]

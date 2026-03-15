@@ -3,6 +3,7 @@ import readline from "readline";
 import {cd, ls, up} from "./navigation.js";
 import {csvToJson} from "./commands/csvToJson.js";
 import {jsonToCsv} from "./commands/jsonToCsv.js";
+import {count} from "./commands/count.js";
 
 function parseCommandLine(line){
   const [command, ...args]=line.split(" ");
@@ -37,6 +38,9 @@ export async function repl() {
           break;
         case "json-to-csv":
           await  jsonToCsv(currentPath, args);
+          break;
+        case "count":
+          await  count(currentPath, args);
           break;
         default:
           console.log("Unknown command: " + command);
