@@ -11,6 +11,7 @@ export async function count(currentPath, args) {
     throw new Error('Error: count command argument format: --input file.txt');
   try {
     const inputFile = path.join(currentPath, args[inputIndex + 1]);
+    await fs.access(inputFile);
     const stream = createReadStream(inputFile, 'utf8');
     let buffer = '';
     let lines = 0;
