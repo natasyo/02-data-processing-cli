@@ -5,13 +5,13 @@ import fs from 'fs';
 export async function jsonToCsv(currentPath, args) {
   if (args.length !== 4)
     throw new Error(
-      'Error: json-to-csv command argument format: --input data.csv --output data.json'
+      'Error: json-to-csv command argument format: --input data.csv --output data.json',
     );
   const inputIndex = args.indexOf('--input');
   const outputIndex = args.indexOf('--output');
   if (inputIndex === -1 || outputIndex === -1) {
     throw new Error(
-      'Error: csvToJson command argument format: --input data.csv --output data.json'
+      'Error: csvToJson command argument format: --input data.csv --output data.json',
     );
   }
 

@@ -5,13 +5,13 @@ import { Readable, Transform, Writable, pipeline } from 'stream';
 export async function csvToJson(currentPath, args) {
   if (args.length !== 4)
     throw new Error(
-      'Error: csvToJson command argument format: --input data.csv --output data.json'
+      'Error: csvToJson command argument format: --input data.csv --output data.json',
     );
   const inputIndex = args.indexOf('--input');
   const outputIndex = args.indexOf('--output');
   if (inputIndex === -1 || outputIndex === -1) {
     throw new Error(
-      'Error: csvToJson command argument format: --input data.csv --output data.json'
+      'Error: csvToJson command argument format: --input data.csv --output data.json',
     );
   }
   const inputFile = path.join(currentPath, args[inputIndex + 1]);
