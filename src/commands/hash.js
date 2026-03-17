@@ -33,8 +33,10 @@ export async function hash(currentPath, args) {
       const output = `${algorithm} : ${hash.digest("hex")}`;
       console.log(output);
       if (args.indexOf("--save") > -1) {
+        const pathFile= `${path.join(inputFile, "..", path.basename(inputFile))}.${algorithm}`;
+        console.log(pathFile)
         await writeFile(
-          `${path.join(directoryPath, "..", path.basename(inputFile))}.${algorithm}`,
+          pathFile,
           output,
         );
       }
