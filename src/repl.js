@@ -1,13 +1,14 @@
-import { stdin, stdout } from 'process';
-import readline from 'readline';
-import { cd, ls, up } from './navigation.js';
-import { csvToJson } from './commands/csvToJson.js';
-import { jsonToCsv } from './commands/jsonToCsv.js';
-import { count } from './commands/count.js';
-import { hash } from './commands/hash.js';
+import { stdin, stdout } from "process";
+import readline from "readline";
+import { cd, ls, up } from "./navigation.js";
+import { csvToJson } from "./commands/csvToJson.js";
+import { jsonToCsv } from "./commands/jsonToCsv.js";
+import { count } from "./commands/count.js";
+import { hash } from "./commands/hash.js";
+import { hashCompare } from "./commands/hashCompare.js";
 
 function parseCommandLine(line) {
-  const [command, ...args] = line.split(' ');
+  const [command, ...args] = line.split(" ");
   return { command, args };
 }
 
@@ -16,39 +17,43 @@ export async function repl() {
   const rl = readline.createInterface({
     input: stdin,
     output: stdout,
-    prompt: '>',
+    prompt: ">",
   });
   rl.prompt();
-  rl.on('line', async (input) => {
+  rl.on("line", async (input) => {
     try {
       const { command, args } = parseCommandLine(input);
       parseCommandLine(input);
       switch (command) {
-        case 'up':
+        case "up":
           currentPath = up(currentPath);
           break;
-        case 'cd':
+        case "cd":
           currentPath = await cd(currentPath, args);
           break;
-        case 'ls':
+        case "ls":
           await ls(currentPath);
           break;
-        case 'csv-to-json':
+        case "csv-to-json":
           await csvToJson(currentPath, args);
           break;
-        case 'json-to-csv':
+        case "json-to-csv":
           await jsonToCsv(currentPath, args);
           break;
-        case 'count':
+        case "count":
           await count(currentPath, args);
           break;
-        case 'hash':
+        case "hash":
           await hash(currentPath, args);
           break;
+        case "hash-compare":
+          await hashCompare(currentPath, args);
+          break;
         default:
-          console.log('Unknown command: ' + command);
+          console.log("Unknown command: " + command);
           break;
       }
+      console.log('\n',currentPath)
       rl.prompt();
     } catch (error) {
       console.error(error.message);
@@ -56,7 +61,7 @@ export async function repl() {
     }
   });
 
-  rl.on('close', () => {
-    console.log('close');
+  rl.on("close", () => {
+    console.log("close");
   });
 }
