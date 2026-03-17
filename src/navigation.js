@@ -6,6 +6,24 @@ export function up(directoryPath) {
   console.log(newPath);
   return newPath;
 }
+export async function setPath(directoryPath,newPath) {
+    if (path.isAbsolute(newPath)) {
+    try {
+      await fs.access(newPath);
+      return newPath;
+    } catch (err) {
+      console.error(err.message);
+    }
+  } else {
+    try {
+      const fullPath = path.join(directoryPath, newPath);
+      await fs.access(fullPath);
+      return fullPath;
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+}
 
 export async function cd(directoryPath, args) {
   console.log(directoryPath);
@@ -13,27 +31,9 @@ export async function cd(directoryPath, args) {
     console.log('Error command: cd');
     return;
   }
-
-  if (path.isAbsolute(args[0])) {
-    try {
-      const newPath = args[0];
-      await fs.access(newPath);
-      console.log(newPath);
-      return newPath;
-    } catch (err) {
-      console.error(err.message);
-    }
-  } else {
-    try {
-      const newPath = path.join(directoryPath, args[0]);
-      await fs.access(newPath);
-      console.log(newPath);
-      return newPath;
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-  return null;
+  const newPath=await setPath(directoryPath,args[0]);
+  console.log(newPath)
+  return newPath;
 }
 
 export async function ls(directoryPath) {

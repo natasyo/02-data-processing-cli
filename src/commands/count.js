@@ -1,6 +1,5 @@
 import { createReadStream } from 'fs';
-import fs from 'fs/promises';
-import path from 'path';
+import { setPath } from '../navigation.js';
 
 export async function count(currentPath, args) {
   if (args.length < 2)
@@ -10,8 +9,7 @@ export async function count(currentPath, args) {
   if (inputIndex < 0)
     throw new Error('Error: count command argument format: --input file.txt');
   try {
-    const inputFile = path.join(currentPath, args[inputIndex + 1]);
-    await fs.access(inputFile);
+    const inputFile =await setPath(currentPath, args[inputIndex + 1]);
     const stream = createReadStream(inputFile, 'utf8');
     let buffer = '';
     let lines = 0;
