@@ -1,11 +1,9 @@
-import { stdin, stdout } from "process";
-import readline from "readline";
-import { repl } from "./repl.js";
+import { repl } from './repl.js';
 
-function main() {
-  console.log("Welcome to Data Processing CLI!");
-  console.log("You are currently in ", process.cwd());
-  repl();
+async function main() {
+  console.log('Welcome to Data Processing CLI!');
+  console.log('You are currently in ', process.cwd());
+  await repl();
 }
 
-main();
+await main();
