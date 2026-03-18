@@ -1,5 +1,5 @@
 import { createReadStream } from 'fs';
-import { setPath } from '../navigation.js';
+import { pathResolver } from '../utils/pathResolver.js';
 
 export async function count(currentPath, args) {
   if (args.length < 2)
@@ -9,7 +9,7 @@ export async function count(currentPath, args) {
   if (inputIndex < 0)
     throw new Error('Error: count command argument format: --input file.txt');
   try {
-    const inputFile =await setPath(currentPath, args[inputIndex + 1]);
+    const inputFile = await pathResolver(currentPath, args[inputIndex + 1]);
     const stream = createReadStream(inputFile, 'utf8');
     let buffer = '';
     let lines = 0;

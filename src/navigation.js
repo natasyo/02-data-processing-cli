@@ -1,28 +1,11 @@
 // navigation.js    — navigation commands (up, cd, ls)
 import path from 'path';
 import fs from 'fs/promises';
+import { pathResolver } from './utils/pathResolver.js';
 export function up(directoryPath) {
   const newPath = path.join(directoryPath, '..');
   console.log(newPath);
   return newPath;
-}
-export async function setPath(directoryPath,newPath) {
-    if (path.isAbsolute(newPath)) {
-    try {
-      await fs.access(newPath);
-      return newPath;
-    } catch (err) {
-      console.error(err.message);
-    }
-  } else {
-    try {
-      const fullPath = path.join(directoryPath, newPath);
-      await fs.access(fullPath);
-      return fullPath;
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
 }
 
 export async function cd(directoryPath, args) {
@@ -31,8 +14,8 @@ export async function cd(directoryPath, args) {
     console.log('Error command: cd');
     return;
   }
-  const newPath=await setPath(directoryPath,args[0]);
-  console.log(newPath)
+  const newPath = await pathResolver(directoryPath, args[0]);
+  console.log(newPath);
   return newPath;
 }
 

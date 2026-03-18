@@ -1,8 +1,8 @@
-import { setPath } from '../navigation.js';
 import path from 'path';
 import { stat } from 'fs/promises';
 import fs from 'fs';
 import crypto from 'crypto';
+import { pathResolver } from '../utils/pathResolver.js';
 export async function decrypt(currentPath, args) {
   return new Promise(async (resolve) => {
     try {
@@ -13,7 +13,7 @@ export async function decrypt(currentPath, args) {
         console.log('Operation failed: Missing arguments or password');
         return;
       }
-      const inputFile = await setPath(currentPath, args[inputIdx + 1]);
+      const inputFile = await pathResolver(currentPath, args[inputIdx + 1]);
       const outputFile = path.join(currentPath, args[outputIdx + 1]);
       const password = args[passIdx + 1];
       if (!password) {
