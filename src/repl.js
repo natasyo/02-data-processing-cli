@@ -7,6 +7,7 @@ import { count } from './commands/count.js';
 import { hash } from './commands/hash.js';
 import { hashCompare } from './commands/hashCompare.js';
 import { encrypt } from './commands/encrypt.js';
+import { decrypt } from './commands/decrypt.js';
 
 function parseCommandLine(line) {
   const [command, ...args] = line.split(' ');
@@ -52,6 +53,9 @@ export async function repl() {
           break;
         case 'encrypt':
           await encrypt(currentPath, args);
+          break;
+        case 'decrypt':
+          await decrypt(currentPath, args);
           break;
         default:
           console.log('Unknown command: ' + command);

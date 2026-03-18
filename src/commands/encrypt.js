@@ -15,7 +15,6 @@ export async function encrypt(currentPath, args) {
       const inputFile = await setPath(currentPath, args[inputIdx + 1]);
       const outputFile = path.join(currentPath, args[outputIdx + 1]);
       const password = args[passIdx + 1];
-      console.log('Password:', password);
       if (!password) {
         console.log('Operation field password');
         return;
