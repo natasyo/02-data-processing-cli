@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { pathResolver } from '../utils/pathResolver.js';
+import { argParser } from '../utils/argParser.js';
 export async function encrypt(currentPath, args) {
   return new Promise(async (resolve) => {
     try {
