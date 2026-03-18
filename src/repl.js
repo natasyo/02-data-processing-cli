@@ -6,6 +6,7 @@ import { jsonToCsv } from './commands/jsonToCsv.js';
 import { count } from './commands/count.js';
 import { hash } from './commands/hash.js';
 import { hashCompare } from './commands/hashCompare.js';
+import { encrypt } from './commands/encrypt.js';
 
 function parseCommandLine(line) {
   const [command, ...args] = line.split(' ');
@@ -48,6 +49,9 @@ export async function repl() {
           break;
         case 'hash-compare':
           await hashCompare(currentPath, args);
+          break;
+        case 'encrypt':
+          await encrypt(currentPath, args);
           break;
         default:
           console.log('Unknown command: ' + command);
