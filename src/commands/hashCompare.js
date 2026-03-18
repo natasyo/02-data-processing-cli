@@ -1,4 +1,3 @@
-import { setPath } from '../navigation.js';
 import fs from 'fs';
 import crypto from 'crypto';
 import { pathResolver } from '../utils/pathResolver.js';

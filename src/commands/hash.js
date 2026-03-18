@@ -1,4 +1,3 @@
-import { setPath } from '../navigation.js';
 import crypto from 'crypto';
 import { writeFile } from 'fs/promises';
 import fs from 'fs';
