@@ -1,29 +1,32 @@
-import { setPath } from '../navigation.js';
 import fs from 'fs';
 import crypto from 'crypto';
+import { pathResolver } from '../utils/pathResolver.js';
+import { argParser } from '../utils/argParser.js';
 
 const algorithmList = ['sha256', 'md5', 'sha512'];
 export async function hashCompare(currentPath, args) {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(args[args.indexOf('--input') + 1], args[args.indexOf('--hash') + 1]);
-      const inputFile = await setPath(currentPath, args[args.indexOf('--input') + 1]);
-      const hashFile = await setPath(currentPath, args[args.indexOf('--hash') + 1]);
-      const algorithm = algorithmList.indexOf(args[args.indexOf('--algorithm') + 1])
-        ? args[args.indexOf('--algorithm') + 1]
-        : 'sha256';
-      const hash = crypto.createHash(algorithm);
+      const { input, hash, algorithm } = argParser(args);
+      if (!input || input === true || !hash || hash === true) {
+        console.log('Operation failed: Missing arguments or password');
+        return resolve();
+      }
+      const inputFile = await pathResolver(currentPath, input);
+      const hashFile = await pathResolver(currentPath, hash);
+      const algorithmData = algorithmList.indexOf(algorithm) > -1 ? algorithm : 'sha256';
+      const hashData = crypto.createHash(algorithmData);
       const hashFileData = fs
         .readFileSync(hashFile, { encoding: 'utf8' })
         .split(':')[1]
         .trim();
       const readStream = fs.createReadStream(inputFile);
       readStream.on('data', (chunk) => {
-        hash.update(chunk);
+        hashData.update(chunk);
       });
 
       readStream.on('end', () => {
-        if (hashFileData === hash.digest('hex')) {
+        if (hashFileData === hashData.digest('hex')) {
           console.log('OK');
         } else {
           console.log('MISMATCH');

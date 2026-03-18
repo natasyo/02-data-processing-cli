@@ -7,6 +7,7 @@ import { count } from './commands/count.js';
 import { hash } from './commands/hash.js';
 import { hashCompare } from './commands/hashCompare.js';
 import { encrypt } from './commands/encrypt.js';
+import { decrypt } from './commands/decrypt.js';
 
 function parseCommandLine(line) {
   const [command, ...args] = line.split(' ');
@@ -53,6 +54,13 @@ export async function repl() {
         case 'encrypt':
           await encrypt(currentPath, args);
           break;
+        case 'decrypt':
+          await decrypt(currentPath, args);
+          break;
+        case '.exit':
+          console.log('\nThank you for using Data Processing CLI!');
+          process.exit(0);
+          break;
         default:
           console.log('Unknown command: ' + command);
           break;
@@ -66,6 +74,6 @@ export async function repl() {
   });
 
   rl.on('close', () => {
-    console.log('close');
+    console.log('\nThank you for using Data Processing CLI!');
   });
 }
