@@ -57,6 +57,10 @@ export async function repl() {
         case 'decrypt':
           await decrypt(currentPath, args);
           break;
+        case '.exit':
+          console.log('\nThank you for using Data Processing CLI!');
+          process.exit(0);
+          break;
         default:
           console.log('Unknown command: ' + command);
           break;
@@ -70,6 +74,6 @@ export async function repl() {
   });
 
   rl.on('close', () => {
-    console.log('close');
+    console.log('\nThank you for using Data Processing CLI!');
   });
 }
